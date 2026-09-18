@@ -131,6 +131,7 @@ impl eframe::App for WinyyApp {
                             ui.label(RichText::new("Licencja:").strong()); ui.label("MIT"); ui.end_row();
                             ui.label(RichText::new("Cel:").strong());      ui.label("Klastry starych urzadzen"); ui.end_row();
                             ui.label(RichText::new("Autor:").strong());    ui.label("Miki"); ui.end_row();
+                            ui.label(RichText::new("GUI:").strong());      ui.label("egui/eframe"); ui.end_row();
                         });
                     }
                 }

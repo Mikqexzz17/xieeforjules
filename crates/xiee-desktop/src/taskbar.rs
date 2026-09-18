@@ -48,6 +48,10 @@ impl Taskbar {
                     if TaskbarIcon::new("WINYY", "w", ICON_SIZE).show(ui) {
                         action = TaskbarAction::OpenApp("winyy".into());
                     }
+                    ui.add_space(8.0);
+                    if TaskbarIcon::new("XFM", "📁", ICON_SIZE).show(ui) {
+                        action = TaskbarAction::OpenApp("xfm".into());
+                    }
                     // Zegar po prawej stronie
                     ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                         ui.add_space(8.0);

@@ -14,6 +14,7 @@ fn main() -> Result<()> {
     for path in &args {
         let content = fs::read_to_string(path)
             .map_err(|e| anyhow::anyhow!("{}: {}", path, e))?;
+        println!("==> {} <==", path);
         print!("{}", content);
     }
     Ok(())
