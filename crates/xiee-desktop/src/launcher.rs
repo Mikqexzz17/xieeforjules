@@ -8,7 +8,7 @@ pub fn show_launcher(ctx: &egui::Context, open: &mut bool) {
         .anchor(Align2::LEFT_BOTTOM, Vec2::new(0.0, -72.0))
         .order(Order::Foreground)
         .show(ctx, |ui| {
-            Frame::none()
+            Frame::new()
                 .fill(XieeColors::LAUNCHER_BG)
                 .corner_radius(CornerRadius::same(8))
                 .inner_margin(egui::Margin::same(16))

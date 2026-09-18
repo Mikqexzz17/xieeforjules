@@ -4,7 +4,7 @@
 
 use anyhow::Result;
 use eframe::egui;
-use egui::{Align2, Area, Color32, FontId, Order, RichText, TextEdit, Vec2};
+use egui::{Align2, Color32, FontId, RichText, TextEdit, Vec2};
 use sha2::{Sha256, Digest};
 use std::{fs, path::PathBuf};
 use xiee_gui::theme::apply_xiee_theme;
@@ -87,7 +87,7 @@ impl eframe::App for LoginApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // Tapeta w tle
         egui::CentralPanel::default()
-            .frame(egui::Frame::none().fill(Color32::from_rgb(20, 30, 50)))
+            .frame(egui::Frame::new().fill(Color32::from_rgb(20, 30, 50)))
             .show(ctx, |ui| {
                 if let Some(tex) = &self.wallpaper {
                     ui.image((tex.id(), ui.available_size()));
@@ -96,7 +96,7 @@ impl eframe::App for LoginApp {
 
         // Przyciemnij tlo
         egui::CentralPanel::default()
-            .frame(egui::Frame::none().fill(Color32::from_rgba_premultiplied(0, 0, 0, 120)))
+            .frame(egui::Frame::new().fill(Color32::from_rgba_premultiplied(0, 0, 0, 120)))
             .show(ctx, |ui| {
                 let screen_rect = ui.max_rect();
 
@@ -109,7 +109,7 @@ impl eframe::App for LoginApp {
                             .collapsible(false)
                             .fixed_size([360.0, 480.0])
                             .anchor(Align2::CENTER_CENTER, Vec2::ZERO)
-                            .frame(egui::Frame::none()
+                            .frame(egui::Frame::new()
                                 .fill(Color32::from_rgba_premultiplied(10, 10, 20, 230))
                                 .corner_radius(egui::CornerRadius::same(16))
                                 .inner_margin(egui::Margin::same(32)))
@@ -177,7 +177,7 @@ impl eframe::App for LoginApp {
                         // === EKRAN LOGOWANIA ===
                         let offset = if *shake > 0.0 {
                             *shake -= ctx.input(|i| i.unstable_dt);
-                            ((*shake * 40.0).sin() * 8.0)
+                            (*shake * 40.0).sin() * 8.0
                         } else { 0.0 };
 
                         egui::Window::new("##login")
@@ -186,7 +186,7 @@ impl eframe::App for LoginApp {
                             .collapsible(false)
                             .fixed_size([340.0, 420.0])
                             .anchor(Align2::CENTER_CENTER, Vec2::new(offset, 0.0))
-                            .frame(egui::Frame::none()
+                            .frame(egui::Frame::new()
                                 .fill(Color32::from_rgba_premultiplied(10, 10, 20, 230))
                                 .corner_radius(egui::CornerRadius::same(16))
                                 .inner_margin(egui::Margin::same(32)))

@@ -2,7 +2,7 @@
 //! Lekki menedzer plikow dla Xiee OS
 
 use eframe::egui;
-use egui::{Color32, RichText, ScrollArea, Vec2};
+use egui::{Color32, RichText, ScrollArea};
 use std::{fs, path::{Path, PathBuf}};
 use xiee_gui::theme::{XieeColors, apply_xiee_theme};
 
@@ -42,7 +42,8 @@ impl FileEntry {
         if self.is_dir { return String::from("—"); }
         if self.size < 1024 { return format!("{} B", self.size); }
         if self.size < 1024 * 1024 { return format!("{:.1} KB", self.size as f64 / 1024.0); }
-        format!("{:.1} MB", self.size as f64 / 1024.0 / 1024.0)
+        if self.size < 1024 * 1024 * 1024 { return format!("{:.1} MB", self.size as f64 / 1024.0 / 1024.0); }
+        format!("{:.1} GB", self.size as f64 / 1024.0 / 1024.0 / 1024.0)
     }
 }
 
@@ -136,6 +137,12 @@ impl eframe::App for XfmApp {
                 ui.add_space(8.0);
                 if ui.button("⮜").on_hover_text("Wstecz").clicked() { self.go_back(); }
                 if ui.button("⬆").on_hover_text("Wyzej").clicked() { self.go_up(); }
+                if ui.button("📝 Nowy plik").on_hover_text("Utwórz nowy pusty plik").clicked() {
+                    let mut file_path = self.current.clone();
+                    file_path.push("nowy_plik.txt");
+                    let _ = std::fs::File::create(&file_path);
+                    self.load_dir(&self.current.clone());
+                }
                 ui.add_space(4.0);
                 // Pasek sciezki
                 ui.label(RichText::new(self.current.display().to_string()).color(Color32::from_white_alpha(180)).size(13.0));

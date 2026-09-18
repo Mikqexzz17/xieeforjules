@@ -51,7 +51,7 @@ fn current_time_str() -> String {
 impl eframe::App for XieeDesktop {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         CentralPanel::default()
-            .frame(egui::Frame::none().fill(egui::Color32::from_rgb(30, 40, 60)))
+            .frame(egui::Frame::new().fill(egui::Color32::from_rgb(30, 40, 60)))
             .show(ctx, |ui| {
                 if let Some(tex) = &self.wallpaper {
                     ui.image((tex.id(), ui.available_size()));

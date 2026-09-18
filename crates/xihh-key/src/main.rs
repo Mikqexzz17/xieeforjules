@@ -2,7 +2,7 @@
 //! Laczy stare urzadzenia w klaster i zarzadza nimi
 
 use eframe::egui;
-use egui::{Color32, RichText, Vec2, Pos2};
+use egui::{Color32, RichText, Pos2};
 use xiee_gui::theme::{XieeColors, apply_xiee_theme};
 
 fn main() {
@@ -145,9 +145,9 @@ impl eframe::App for XihhKeyApp {
                         });
                         ui.add_space(16.0);
                         ui.horizontal(|ui| {
-                            ui.button("SSH Terminal");
-                            ui.button("Ping");
-                            ui.button("Restart");
+                            let _ = ui.button("SSH Terminal");
+                            let _ = ui.button("Ping");
+                            let _ = ui.button("Restart");
                             if ui.button(RichText::new("Usun").color(Color32::from_rgb(255,80,80))).clicked() {
                                 self.devices.remove(idx);
                                 self.selected = None;
