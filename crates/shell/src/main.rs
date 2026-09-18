@@ -19,6 +19,8 @@ fn main() -> Result<()> {
     println!("Xiee Shell v{}", env!("CARGO_PKG_VERSION"));
     println!("Wpisz 'help' aby zobaczyc dostepne komendy.");
 
+    let mut history: Vec<String> = Vec::new();
+
     loop {
         // Wyswietl prompt
         prompt::print_prompt();
@@ -37,8 +39,10 @@ fn main() -> Result<()> {
             continue;
         }
 
+        history.push(line.to_string());
+
         // Wykonaj komende
-        if let Err(e) = executor::execute(line) {
+        if let Err(e) = executor::execute(line, &history) {
             eprintln!("Blad: {}", e);
         }
     }

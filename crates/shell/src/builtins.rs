@@ -5,7 +5,7 @@ use std::env;
 use std::path::Path;
 
 /// Wykonaj wbudowana komende. Zwraca None jesli komenda nie jest wbudowana.
-pub fn try_builtin(cmd: &str, args: &[&str]) -> Option<Result<()>> {
+pub fn try_builtin(cmd: &str, args: &[&str], history: &[String]) -> Option<Result<()>> {
     match cmd {
         "cd" => Some(cmd_cd(args)),
         "exit" | "quit" => Some(cmd_exit(args)),
@@ -13,6 +13,7 @@ pub fn try_builtin(cmd: &str, args: &[&str]) -> Option<Result<()>> {
         "echo" => Some(cmd_echo(args)),
         "pwd" => Some(cmd_pwd()),
         "clear" => Some(cmd_clear()),
+        "history" => Some(cmd_history(history)),
         _ => None,
     }
 }
@@ -53,5 +54,12 @@ fn cmd_pwd() -> Result<()> {
 
 fn cmd_clear() -> Result<()> {
     print!("\x1b[2J\x1b[H");
+    Ok(())
+}
+
+fn cmd_history(history: &[String]) -> Result<()> {
+    for (i, cmd) in history.iter().enumerate() {
+        println!("  {}  {}", i + 1, cmd);
+    }
     Ok(())
 }

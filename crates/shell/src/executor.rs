@@ -5,7 +5,7 @@ use std::process::{Command, Stdio};
 use crate::builtins;
 
 /// Wykonaj komende (wbudowana lub zewnetrzna)
-pub fn execute(line: &str) -> Result<()> {
+pub fn execute(line: &str, history: &[String]) -> Result<()> {
     let parts: Vec<&str> = line.split_whitespace().collect();
     if parts.is_empty() {
         return Ok(());
@@ -15,7 +15,7 @@ pub fn execute(line: &str) -> Result<()> {
     let args = &parts[1..];
 
     // Sprobuj wbudowanych komend najpierw
-    if let Some(result) = builtins::try_builtin(cmd, args) {
+    if let Some(result) = builtins::try_builtin(cmd, args, history) {
         return result;
     }
 
